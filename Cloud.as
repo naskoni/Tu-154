@@ -1,16 +1,13 @@
-﻿package 
-{
+﻿package {
 
 	import flash.display.MovieClip;
 
 
-	public class Cloud extends MovieClip
-	{
+	public class Cloud extends MovieClip {
 
 
-		public function Cloud()
-		{
-			
+		public function Cloud() {
+
 		}
 	}
 
