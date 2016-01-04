@@ -1,13 +1,11 @@
-﻿package {
+﻿package 
+{
+	import src.models.MovableObject;
 
-	import flash.display.MovieClip;
-
-
-	public class Fuel extends MovieClip {
-
-
-		public function Fuel() {
-
+	public class Fuel extends MovableObject
+	{
+		public function Fuel()
+		{
 		}
 	}
 

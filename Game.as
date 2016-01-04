@@ -5,6 +5,9 @@
 	import flash.geom.*;
 	import flash.text.*;
 	import flash.media.*;
+	import src.core.GameObjectFactory;
+	import src.models.*;
+	import flashx.textLayout.operations.MoveChildrenOperation;
 
 	public class Game extends MovieClip {
 		private var myPlane:Plane;
@@ -57,7 +60,17 @@
 				clouds.push(cloud);
 				stage.addChildAt(cloud, 2);
 			}
-			moveObjects(clouds);
+			
+			for (var i = clouds.length-1; i >= 0; i--)
+			{
+				clouds[i].move();
+				if (clouds[i].x > END_X) {
+					stage.removeChild(clouds[i]);
+					clouds.splice(i,1);
+				}
+			}					
+			
+			
 
 			// fuel
 			if (Math.random() < RANDOM_CHANCE) {
@@ -65,7 +78,15 @@
 				fuels.push(fuel);
 				stage.addChildAt(fuel, 2);
 			}
-			moveObjects(fuels);
+			
+			for (i = fuels.length-1; i >= 0; i--)
+			{
+				fuels[i].move();
+				if (fuels[i].x > END_X) {
+					stage.removeChild(fuels[i]);
+					fuels.splice(i,1);
+				}
+			}					
 
 			// collisions
 			myPlanePoint = new Point(myPlane.x,myPlane.y);
@@ -90,14 +111,14 @@
 			txtScore.text = String(points);
 		}
 
-		private function moveObjects(arr:Array) {
-			for (var i = arr.length-1; i >= 0; i--) {
-				arr[i].x +=  SPEED;
-				if (arr[i].x > END_X) {
-					stage.removeChild(arr[i]);
-					arr.splice(i,1);
-				}
-			}
-		}
+		//private function moveObjects(arr:Array) {
+//			for (var i = arr.length-1; i >= 0; i--) {
+//				arr[i].x +=  SPEED;
+//				if (arr[i].x > END_X) {
+//					stage.removeChild(arr[i]);
+//					arr.splice(i,1);
+//				}
+//			}
+//		}
 	}
 }

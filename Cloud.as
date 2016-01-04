@@ -1,13 +1,11 @@
-﻿package {
+﻿package 
+{	
+	import src.models.MovableObject;
 
-	import flash.display.MovieClip;
-
-
-	public class Cloud extends MovieClip {
-
-
-		public function Cloud() {
-
+	public class Cloud extends MovableObject
+	{
+		public function Cloud()
+		{
 		}
 	}
 
