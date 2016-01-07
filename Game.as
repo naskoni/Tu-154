@@ -1,5 +1,5 @@
-﻿package {
-
+﻿package 
+{
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.geom.*;
@@ -9,7 +9,8 @@
 	import src.models.*;
 	import flashx.textLayout.operations.MoveChildrenOperation;
 
-	public class Game extends MovieClip {
+	public class Game extends MovieClip
+	{
 		private var myPlane:Plane;
 		private var clouds:Array;
 		private var fuels:Array;
@@ -28,7 +29,8 @@
 		private static const PASS_CLOUD:Number = 30;
 		private static const HIT_FUEL:Number = 25;
 
-		public function Game() {
+		public function Game()
+		{
 			myPlane = new Plane();
 			clouds = new Array();
 			fuels = new Array();
@@ -37,88 +39,89 @@
 			collectSound = new CollectSound();
 		}
 
-		public function startGame() {
+		public function startGame()
+		{
 			stage.addChild(myPlane);
 			stage.addEventListener(Event.ENTER_FRAME, updateGame);
 			points = START_POINTS;
 			soundChannel = music.play(0,int.MAX_VALUE);
 		}
 
-		private function updateGame(evt:Event) {
+		private function updateGame(evt:Event)
+		{
 			// plane
 			var currentMouseY = mouseY;
-			if (currentMouseY - TOLERANCE > myPlane.y) {
+			
+			if (currentMouseY - TOLERANCE > myPlane.y)
+			{
 				myPlane.moveDown();
 			}
-			else if (currentMouseY + TOLERANCE < myPlane.y) {
+			else if (currentMouseY + TOLERANCE < myPlane.y)
+			{
 				myPlane.moveUp();
 			}
 
 			// clouds
-			if (Math.random() < RANDOM_CHANCE) {
+			if (Math.random() < RANDOM_CHANCE)
+			{
 				var cloud = gameObjectFactory.create("cloud");
 				clouds.push(cloud);
 				stage.addChildAt(cloud, 2);
 			}
-			
+
 			for (var i = clouds.length-1; i >= 0; i--)
 			{
 				clouds[i].move();
-				if (clouds[i].x > END_X) {
+				if (clouds[i].x > END_X)
+				{
 					stage.removeChild(clouds[i]);
 					clouds.splice(i,1);
 				}
-			}					
+			}
 			
-			
-
 			// fuel
-			if (Math.random() < RANDOM_CHANCE) {
+			if (Math.random() < RANDOM_CHANCE)
+			{
 				var fuel = gameObjectFactory.create("fuel");
 				fuels.push(fuel);
 				stage.addChildAt(fuel, 2);
 			}
-			
+
 			for (i = fuels.length-1; i >= 0; i--)
 			{
 				fuels[i].move();
-				if (fuels[i].x > END_X) {
+				if (fuels[i].x > END_X)
+				{
 					stage.removeChild(fuels[i]);
 					fuels.splice(i,1);
 				}
-			}					
+			}
 
 			// collisions
 			myPlanePoint = new Point(myPlane.x,myPlane.y);
 
-			for (var j = clouds.length-1; j >= 0; j--) {
+			for (var j = clouds.length-1; j >= 0; j--)
+			{
 				var cloudPoint:Point = new Point(clouds[j].x,clouds[j].y);
-				if (Point.distance(myPlanePoint,cloudPoint) < PASS_CLOUD) {
+				if (Point.distance(myPlanePoint,cloudPoint) < PASS_CLOUD)
+				{
 					points--;
 				}
 			}
 
-			for (var l = fuels.length-1; l >= 0; l--) {
+			for (var l = fuels.length-1; l >= 0; l--)
+			{
 				var fuelPoint:Point = new Point(fuels[l].x,fuels[l].y);
-				if (Point.distance(myPlanePoint,fuelPoint) < HIT_FUEL) {
+				if (Point.distance(myPlanePoint,fuelPoint) < HIT_FUEL)
+				{
 					stage.removeChild(fuels[l]);
 					fuels.splice(l,1);
 					collectSound.play();
 					points++;
 				}
 			}
-			
-			txtScore.text = String(points);
-		}
 
-		//private function moveObjects(arr:Array) {
-//			for (var i = arr.length-1; i >= 0; i--) {
-//				arr[i].x +=  SPEED;
-//				if (arr[i].x > END_X) {
-//					stage.removeChild(arr[i]);
-//					arr.splice(i,1);
-//				}
-//			}
-//		}
+			txtScore.text = String(points);
+		}		
 	}
 }

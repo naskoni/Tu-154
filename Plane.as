@@ -3,7 +3,7 @@
 	import flash.display.MovieClip;
 	import src.interfaces.IMovable;
 
-	public class Plane extends MovieClip implements IMovable
+	public class Plane extends MovieClip
 	{
 		private static const SPEED:Number = 2;
 
@@ -21,11 +21,6 @@
 		public function moveDown()
 		{
 			y +=  SPEED;
-		}
-		
-		public function move():void
-		{
-		}
+		}		
 	}
-
 }
