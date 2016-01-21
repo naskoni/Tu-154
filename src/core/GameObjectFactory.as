@@ -5,11 +5,6 @@
 
 	public class GameObjectFactory implements ICreatable
 	{
-
-		public function GameObjectFactory()
-		{			
-		}
-
 		public function create(gameObjectType:String)
 		{
 			var gameObject:MovableObject;

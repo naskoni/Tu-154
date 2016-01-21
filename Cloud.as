@@ -4,9 +4,7 @@
 
 	public class Cloud extends MovableObject
 	{
-		public function Cloud()
-		{
-		}
+		
 	}
 
 }

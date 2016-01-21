@@ -4,9 +4,7 @@
 
 	public class Fuel extends MovableObject
 	{
-		public function Fuel()
-		{
-		}
+		
 	}
 
 }
