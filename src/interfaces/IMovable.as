@@ -2,7 +2,7 @@
 {
 	public interface IMovable
 	{
-		function move():void;
+		function move(speed:Number):void;
 	}
 	
 }

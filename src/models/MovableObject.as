@@ -7,8 +7,7 @@
 	public class MovableObject extends MovieClip implements IMovable
 	{		
 		private static const START_Y:Number = 400;
-		private static const START_X:Number = -30;
-		private static const SPEED:Number = 8;		
+		private static const START_X:Number = -30;				
 		
 		public function MovableObject()
 		{
@@ -16,9 +15,9 @@
 			this.y = Math.random() * START_Y;
 		}
 		
-		public function move():void
+		public function move(speed:Number):void
 		{
-			this.x +=  SPEED;			
+			this.x += speed;			
 		}		
 	}
 

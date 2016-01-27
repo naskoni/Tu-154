@@ -28,6 +28,8 @@
 		private static const START_POINTS:Number = 10;
 		private static const PASS_CLOUD:Number = 30;
 		private static const HIT_FUEL:Number = 25;
+		private static const GAME_OBJECTS_SPEED:Number = 8;
+		private static const PLANE_SPEED:Number = 2;
 
 		public function Game()
 		{
@@ -39,29 +41,39 @@
 			collectSound = new CollectSound();
 		}
 
-		public function startGame()
+		public function startGame():void
 		{
 			stage.addChild(myPlane);
 			stage.addEventListener(Event.ENTER_FRAME, updateGame);
 			points = START_POINTS;
-			soundChannel = music.play(0,int.MAX_VALUE);
+			soundChannel = music.play(0, int.MAX_VALUE);
 		}
 
-		private function updateGame(evt:Event)
+		private function updateGame(evt:Event):void
 		{
-			// plane
+			movePlane();
+			moveGameObjects();
+			checkCollisions();
+
+			txtScore.text = String(points);
+		}
+		
+		private function movePlane():void
+		{
 			var currentMouseY = mouseY;
 			
 			if (currentMouseY - TOLERANCE > myPlane.y)
 			{
-				myPlane.moveDown();
+				myPlane.move(PLANE_SPEED);
 			}
 			else if (currentMouseY + TOLERANCE < myPlane.y)
 			{
-				myPlane.moveUp();
+				myPlane.move(-PLANE_SPEED);
 			}
-
-			// clouds
+		}
+		
+		private function moveGameObjects():void
+		{
 			if (Math.random() < RANDOM_CHANCE)
 			{
 				var cloud = gameObjectFactory.create("cloud");
@@ -71,15 +83,14 @@
 
 			for (var i = clouds.length-1; i >= 0; i--)
 			{
-				clouds[i].move();
+				clouds[i].move(GAME_OBJECTS_SPEED);
 				if (clouds[i].x > END_X)
 				{
 					stage.removeChild(clouds[i]);
 					clouds.splice(i,1);
 				}
 			}
-			
-			// fuel
+						
 			if (Math.random() < RANDOM_CHANCE)
 			{
 				var fuel = gameObjectFactory.create("fuel");
@@ -89,15 +100,17 @@
 
 			for (i = fuels.length-1; i >= 0; i--)
 			{
-				fuels[i].move();
+				fuels[i].move(GAME_OBJECTS_SPEED);
 				if (fuels[i].x > END_X)
 				{
 					stage.removeChild(fuels[i]);
 					fuels.splice(i,1);
 				}
 			}
-
-			// collisions
+		}
+		
+		private function checkCollisions():void
+		{
 			myPlanePoint = new Point(myPlane.x,myPlane.y);
 
 			for (var j = clouds.length-1; j >= 0; j--)
@@ -120,8 +133,6 @@
 					points++;
 				}
 			}
-
-			txtScore.text = String(points);
-		}		
+		}
 	}
 }
