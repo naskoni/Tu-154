@@ -51,14 +51,14 @@
 
 		private function updateGame(evt:Event):void
 		{
-			movePlane();
+			interactWithPlayer();
 			moveGameObjects();
 			checkCollisions();
 
 			txtScore.text = String(points);
 		}
 		
-		private function movePlane():void
+		private function interactWithPlayer():void
 		{
 			var currentMouseY = mouseY;
 			
@@ -87,7 +87,7 @@
 				if (clouds[i].x > END_X)
 				{
 					stage.removeChild(clouds[i]);
-					clouds.splice(i,1);
+					clouds.splice(i, 1);
 				}
 			}
 						
@@ -104,31 +104,31 @@
 				if (fuels[i].x > END_X)
 				{
 					stage.removeChild(fuels[i]);
-					fuels.splice(i,1);
+					fuels.splice(i, 1);
 				}
 			}
 		}
 		
 		private function checkCollisions():void
 		{
-			myPlanePoint = new Point(myPlane.x,myPlane.y);
+			myPlanePoint = new Point(myPlane.x, myPlane.y);
 
-			for (var j = clouds.length-1; j >= 0; j--)
+			for (var i = clouds.length-1; i >= 0; i--)
 			{
-				var cloudPoint:Point = new Point(clouds[j].x,clouds[j].y);
+				var cloudPoint:Point = new Point(clouds[i].x,clouds[i].y);
 				if (Point.distance(myPlanePoint,cloudPoint) < PASS_CLOUD)
 				{
 					points--;
 				}
 			}
 
-			for (var l = fuels.length-1; l >= 0; l--)
+			for (i = fuels.length-1; i >= 0; i--)
 			{
-				var fuelPoint:Point = new Point(fuels[l].x,fuels[l].y);
-				if (Point.distance(myPlanePoint,fuelPoint) < HIT_FUEL)
+				var fuelPoint:Point = new Point(fuels[i].x, fuels[i].y);
+				if (Point.distance(myPlanePoint, fuelPoint) < HIT_FUEL)
 				{
-					stage.removeChild(fuels[l]);
-					fuels.splice(l,1);
+					stage.removeChild(fuels[i]);
+					fuels.splice(i, 1);
 					collectSound.play();
 					points++;
 				}

@@ -1,4 +1,4 @@
-﻿package 
+﻿package
 {
 	import flash.display.MovieClip;
 	import src.interfaces.IMovable;

@@ -1,4 +1,4 @@
-﻿package 
+﻿package
 {	
 	import src.models.MovableObject;
 
